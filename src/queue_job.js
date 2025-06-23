@@ -1,9 +1,9 @@
 // vim: ts=4:sw=4:expandtab
- 
- /*
-  * jobQueue manages multiple queues indexed by device to serialize
-  * session io ops on the database.
-  */
+
+/*
+ * jobQueue manages multiple queues indexed by device to serialize
+ * session io ops on the database.
+ */
 'use strict';
 
 
@@ -18,7 +18,7 @@ async function _asyncQueueExecutor(queue, cleanup) {
             const job = queue[i];
             try {
                 job.resolve(await job.awaitable());
-            } catch(e) {
+            } catch (e) {
                 job.reject(e);
             }
         }
@@ -43,11 +43,11 @@ module.exports = function(bucket, awaitable) {
      * key representing the task queue to use. */
     if (!awaitable.name) {
         // Make debuging easier by adding a name to this function.
-        Object.defineProperty(awaitable, 'name', {writable: true});
+        Object.defineProperty(awaitable, 'name', { writable: true });
         if (typeof bucket === 'string') {
             awaitable.name = bucket;
         } else {
-            console.warn("Unhandled bucket type (for naming):", typeof bucket, bucket);
+            // console.warn("Unhandled bucket type (for naming):", typeof bucket, bucket);
         }
     }
     let inactive;
